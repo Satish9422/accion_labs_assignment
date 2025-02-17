@@ -11,3 +11,18 @@ jobs:
      uses: actions/checkout@v3
    - name: Build Docker Image
      run: docker build -t nginx:1.19-accion
+   - name: Scan Image Before Pushing to DockerHub
+     uses: aquasecurity/trivy-action@master
+     with: 
+      image-ref: "nginx:1.19-accion"
+   - name: Push Image to DockerHub
+     run |
+      echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_UERSNAME }}" --password-stdin
+      docker tag nginx:1.19-accion docker-user/nginx:1.19-accion
+      docker push docker-user/nginx:1.19-accion
+   - name: Deploy to Kubernetes
+     run: |
+       kubernetes apply -f Statefulset-deployment.yml
+       
+
+      
