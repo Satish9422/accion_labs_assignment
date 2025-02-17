@@ -14,7 +14,7 @@ template:
   spec:
    conatiners:
     - name: nginx
-      image: nginx:1.19-alpine
+      image: nginx:1.19-accion
       ports:
        - containerPort: 80
       volumeMounts: 
