@@ -1,1 +1,13 @@
-Name
+name: CICD pipeline to deploy on kubernetes
+on:
+ push: 
+  branch: 
+     - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+  steps:
+   - name: Checkout code from repository
+     uses: actions/checkout@v3
+   - name: Build Docker Image
+     run: docker build -t nginx:1.19-accion
