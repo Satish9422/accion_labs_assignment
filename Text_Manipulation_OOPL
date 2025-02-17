@@ -1,0 +1,13 @@
+import re
+
+class EmailExtractor:
+ def __init__(self, filename):
+ self.filename = filename
+
+ def extract_emails(self):
+   with open(self.filename, 'r') as file:
+     content = file.read()
+  return sorted(set(re.findall(r"[a-zA-Z0-9._%+-]+@[a-zA-Z0-9._%+-]+\.[a-zA-Z]{2,}", content)))
+
+extractor = EmailExtractor("logfile.txt")
+print(extractor.extract_emails())
